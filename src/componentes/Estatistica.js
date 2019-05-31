@@ -41,9 +41,9 @@ class Estatistica extends Component {
 
  
 
-  getDados() {
+  async getDados() {
     const dataAgora = {data: this.state.date};
-    axios.get("http://localhost:9000/pegaValores", {params: dataAgora})
+    await axios.get("https://backend-icc.herokuapp.com/pegaValores", {params: dataAgora})
       .then(res => {
         let chartData = { ...this.state.chartData }
         chartData.datasets[0].data = res.data;
