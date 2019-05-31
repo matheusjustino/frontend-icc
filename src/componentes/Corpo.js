@@ -43,7 +43,7 @@ class Corpo extends Component {
   onSubmit = () => {
     axios({
       method: 'post',
-      url: "https://backend-icc.herokuapp.com/salvaValores",
+      url: "http://localhost:9000/salvaValores",
       headers: { "Content-Type": "application/json" },
       data: {
         values: this.state.values,
