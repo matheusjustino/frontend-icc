@@ -4,7 +4,7 @@ import CorpoInputTextArea from './CorpoInputTextArea';
 import axios from 'axios';
 import Titulo from './Title';
 import Matricula from './Matricula';
-
+import api from '../Service';
 import { Link } from 'react-router-dom'
 
 import { Container, Row, Col, Form, Navbar } from 'reactstrap';
@@ -41,6 +41,9 @@ class Corpo extends Component {
   }
 
   onSubmit = () => {
+    let d = new Date();
+    let dataAtual = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0"+ (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
+    
     axios({
       method: 'post',
       url: "http://localhost:9000/salvaValores",
@@ -48,7 +51,8 @@ class Corpo extends Component {
       data: {
         values: this.state.values,
         matricula: this.state.matricula,
-        textArea: this.state.textArea
+        textArea: this.state.textArea,
+	data: dataAtual
       }
     });
   }
