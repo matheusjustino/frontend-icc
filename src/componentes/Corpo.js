@@ -46,13 +46,13 @@ class Corpo extends Component {
     
     axios({
       method: 'post',
-      url: "http://localhost:9000/salvaValores",
+      url: "http://localhost:" + (process.env.PORT || 9000) + "/salvaValores",
       headers: { "Content-Type": "application/json" },
       data: {
         values: this.state.values,
         matricula: this.state.matricula,
         textArea: this.state.textArea,
-	data: dataAtual
+	      data: dataAtual
       }
     });
   }
