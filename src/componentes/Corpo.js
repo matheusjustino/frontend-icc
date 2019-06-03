@@ -46,7 +46,7 @@ class Corpo extends Component {
     
     axios({
       method: 'post',
-      url: "http://localhost:" + (process.env.PORT || 9000) + "/salvaValores",
+      url: "mongodb+srv://deploy:dbicc321@cluster0-r58uk.mongodb.net/test?retryWrites=true&w=majority",
       headers: { "Content-Type": "application/json" },
       data: {
         values: this.state.values,
