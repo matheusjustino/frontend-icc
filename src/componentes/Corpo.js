@@ -46,7 +46,7 @@ class Corpo extends Component {
     
     axios({
       method: 'post',
-      url: "http://localhost:" + (process.env.PORT || 9000) + "/salvaValores",
+      url: "https://backend-icc.herokuapp.com/salvaValores",
       headers: { "Content-Type": "application/json" },
       data: {
         values: this.state.values,
