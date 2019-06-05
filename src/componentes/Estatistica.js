@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Chart from './Chart';
 import axios from 'axios';
 import Calendar from "./Datepicker";
+import ColumnChart from "./Colum";
 
 class Estatistica extends Component {
 
@@ -26,24 +27,23 @@ class Estatistica extends Component {
           }
         ]
       },
-      date: ((new Date().getDate() < 9 ? "0" + new Date().getDate() : new Date().getDate()) + "/" + (new Date().getMonth() < 9 ? "0"+ (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "/" + new Date().getFullYear())
+      date: ((new Date().getDate() < 9 ? "0" + new Date().getDate() : new Date().getDate()) + "/" + (new Date().getMonth() < 9 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "/" + new Date().getFullYear())
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
     let d = e
-    d = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0"+ (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
+    d = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
     this.state.date = d;
     this.setState({ date: d });
     this.getDados();
   }
 
- 
 
   async getDados() {
-    const dataAgora = {data: this.state.date};
-    await axios.get("https://backend-icc.herokuapp.com/pegaValores", {params: dataAgora})
+    const dataAgora = { data: this.state.date };
+    await axios.get("https://backend-icc.herokuapp.com/pegaValores", { params: dataAgora })
       .then(res => {
         let chartData = { ...this.state.chartData }
         chartData.datasets[0].data = res.data;
@@ -54,13 +54,19 @@ class Estatistica extends Component {
   render() {
     return (
       <div className="App">
-        <Calendar
-          myFunction={this.handleChange}
-        ></Calendar>
-        <Chart chartData={this.state.chartData} /*titleGraph="Estatística de avaliação de aula"*/ legendPosition="top"></Chart>
+        <div className="my-4">
+          <Calendar
+            myFunction={this.handleChange}
+          ></Calendar>
+        </div>
+        <div className="my-5">
+          <ColumnChart values={this.state.chartData.datasets[0]}/>
+        </div>
+        
       </div>
     )
   }
 }
 
 export default Estatistica;
+//<Chart chartData={this.state.chartData} /*titleGraph="Estatística de avaliação de aula"*/ legendPosition="top"></Chart>
