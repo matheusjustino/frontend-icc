@@ -1,13 +1,11 @@
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-export default class Example extends PureComponent {
+export default class ChartBar extends PureComponent {
 
   constructor(props) {
     super(props);
   }
-
-  static jsfiddleUrl = 'https://jsfiddle.net/alidingling/90v76x08/';
 
   render() {
     return (
@@ -17,9 +15,11 @@ export default class Example extends PureComponent {
           width={1080}
           height={720}
           data={this.props.values}
-          margin={{
-            top: 20, right: 30, left: 20, bottom: 5,
-          }}
+          margin={
+            {
+              top: 20, right: 30, left: 20, bottom: 5,
+            }
+          }
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
@@ -31,6 +31,7 @@ export default class Example extends PureComponent {
           <Bar dataKey="Material" stackId="a" fill="rgba(255,206,86,0.6)" />
           <Bar dataKey="Geral" stackId="a" fill="rgba(75,192,192,0.6)" />
         </BarChart>
+        
       </div>
     );
   }

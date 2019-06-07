@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Calendar from "./Datepicker";
 //import ColumnChart from "./Colum";
-import Example from './Bar';
+import ChartBar from './Bar';
 
 class Estatistica extends Component {
 
@@ -47,10 +47,9 @@ class Estatistica extends Component {
     const dataAgora = { data: this.state.date };
     await axios.get("https://backend-icc.herokuapp.com/pegaValores", { params: dataAgora })
       .then(res => {
-        //console.log(res.data)
+
         let chartData2 = { ...this.state.chartData }
         chartData2.datasets[0].data = res.data;
-        //console.log(chartData2.datasets[0])
         const a = res.data;
         const v1 = [
           {
@@ -85,7 +84,7 @@ class Estatistica extends Component {
         </div>
 
         <div className="my-5">
-          <Example values={this.state.chartData.datasets[0].data2}></Example>
+          <ChartBar values={this.state.chartData.datasets[0].data2}></ChartBar>
         </div>
 
       </div>
