@@ -4,7 +4,6 @@ import CorpoInputTextArea from './CorpoInputTextArea';
 import axios from 'axios';
 import Titulo from './Title';
 import Matricula from './Matricula';
-import api from '../Service';
 import { Link } from 'react-router-dom'
 
 import { Container, Row, Col, Form, Navbar } from 'reactstrap';
@@ -33,7 +32,7 @@ class Corpo extends Component {
   }
 
   setTextArea(e) {
-    this.setState({ textArea: e.target.value});
+    this.setState({ textArea: e.target.value });
   }
 
   print() {
@@ -42,8 +41,8 @@ class Corpo extends Component {
 
   onSubmit = () => {
     let d = new Date();
-    let dataAtual = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0"+ (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
-    
+    let dataAtual = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
+
     axios({
       method: 'post',
       url: "https://backend-icc.herokuapp.com/salvaValores",
@@ -52,7 +51,7 @@ class Corpo extends Component {
         values: this.state.values,
         matricula: this.state.matricula,
         textArea: this.state.textArea,
-	      data: dataAtual
+        data: dataAtual
       }
     });
   }
@@ -105,7 +104,7 @@ class Corpo extends Component {
                 </Col>
 
                 <Col className="col-lg-6 col-sm-12 my-3">
-                  <CorpoInputTextArea myFunction={this.setTextArea}  text="Dica(s) para melhorar a aula"></CorpoInputTextArea>
+                  <CorpoInputTextArea myFunction={this.setTextArea} text="Dica(s) para melhorar a aula"></CorpoInputTextArea>
                 </Col>
 
               </Row>

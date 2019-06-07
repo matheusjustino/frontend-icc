@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Chart from './Chart';
+//import Chart from './Chart';
 import axios from 'axios';
 import Calendar from "./Datepicker";
-import ColumnChart from "./Colum";
+//import ColumnChart from "./Colum";
+import Example from './Bar';
 
 class Estatistica extends Component {
 
@@ -15,6 +16,7 @@ class Estatistica extends Component {
           {
             label: "Avaliações Recebidas",
             data: [],
+            data2: [],
             backgroundColor: [
               'rgba(255,99,132,0.6)',
               'rgba(54,162,235,0.6)',
@@ -45,9 +47,31 @@ class Estatistica extends Component {
     const dataAgora = { data: this.state.date };
     await axios.get("https://backend-icc.herokuapp.com/pegaValores", { params: dataAgora })
       .then(res => {
-        let chartData = { ...this.state.chartData }
-        chartData.datasets[0].data = res.data;
-        this.setState({ chartData: chartData });
+        //console.log(res.data)
+        let chartData2 = { ...this.state.chartData }
+        chartData2.datasets[0].data = res.data;
+        //console.log(chartData2.datasets[0])
+        const a = res.data;
+        const v1 = [
+          {
+            name: "Muito Bom", "Aproveitamento da aula": a[4][0], "Conteúdo": a[4][1], "Material": a[4][2], "Geral": a[4][3],
+          },
+          {
+            name: "Bom", "Aproveitamento da aula": a[3][0], "Conteúdo": a[3][1], "Material": a[3][2], "Geral": a[3][3],
+          },
+          {
+            name: "Normal", "Aproveitamento da aula": a[2][0], "Conteúdo": a[2][1], "Material": a[2][2], "Geral": a[2][3],
+          },
+          {
+            name: "Ruim", "Aproveitamento da aula": a[1][0], "Conteúdo": a[1][0], "Material": a[1][2], "Geral": a[1][3],
+          },
+          {
+            name: "Muito Ruim", "Aproveitamento da aula": a[0][0], "Conteúdo": a[0][1], "Material": a[0][2], "Geral": a[0][3],
+          }
+        ]
+        chartData2.datasets[0].data2 = v1;
+        console.log(chartData2);
+        this.setState({ chartData: chartData2 });
       });
   }
 
@@ -59,10 +83,11 @@ class Estatistica extends Component {
             myFunction={this.handleChange}
           ></Calendar>
         </div>
+
         <div className="my-5">
-          <ColumnChart values={this.state.chartData.datasets[0]}/>
+          <Example values={this.state.chartData.datasets[0].data2}></Example>
         </div>
-        
+
       </div>
     )
   }
