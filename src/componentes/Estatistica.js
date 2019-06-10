@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Input, Container } from 'reactstrap';
 //import Chart from './Chart';
 import axios from 'axios';
 import Calendar from "./Datepicker";
@@ -10,6 +11,7 @@ class Estatistica extends Component {
   constructor() {
     super();
     this.state = {
+      textOut: "Testando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\n",
       chartData: {
         labels: ["Seu aproveitamento da aula", "Explicação do conteúdo", "Material da aula", "Avaliação geral da aula"],
         datasets: [
@@ -86,7 +88,6 @@ class Estatistica extends Component {
         <div className="my-5">
           <ChartBar values={this.state.chartData.datasets[0].data2}></ChartBar>
         </div>
-
       </div>
     )
   }
@@ -94,3 +95,15 @@ class Estatistica extends Component {
 
 export default Estatistica;
 //<Chart chartData={this.state.chartData} /*titleGraph="Estatística de avaliação de aula"*/ legendPosition="top"></Chart>
+
+/*
+<div className="my-5">
+
+          <Container>
+
+            <Input value={this.state.textOut} className="reSize" rows="12" type="textarea"></Input>
+
+          </Container>
+
+        </div>
+*/

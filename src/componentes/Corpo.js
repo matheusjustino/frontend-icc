@@ -81,27 +81,28 @@ class Corpo extends Component {
           <Container className="borda" expand="md">
             <Form>
               <Row>
-
-                <Col className="form-group my-3">
-                  {renderCorpo([
-                    {
-                      id: 0,
-                      text: "Seu aproveitamento da aula"
-                    },
-                    {
-                      id: 1,
-                      text: "Explicação do conteúdo"
-                    },
-                    {
-                      id: 2,
-                      text: "Material da aula"
-                    },
-                    {
-                      id: 3,
-                      text: "Avaliação geral da aula"
-                    }
-                  ], this.setValues.bind(this), this.state.values)}
-                </Col>
+                <div className="col-sm-12 col-lg-6">
+                  <Col className="form-group my-3">
+                    {renderCorpo([
+                      {
+                        id: 0,
+                        text: "Seu aproveitamento da aula"
+                      },
+                      {
+                        id: 1,
+                        text: "Explicação do conteúdo"
+                      },
+                      {
+                        id: 2,
+                        text: "Material da aula"
+                      },
+                      {
+                        id: 3,
+                        text: "Avaliação geral da aula"
+                      }
+                    ], this.setValues.bind(this), this.state.values)}
+                  </Col>
+                </div>
 
                 <Col className="col-lg-6 col-sm-12 my-3">
                   <CorpoInputTextArea myFunction={this.setTextArea} text="Dica(s) para melhorar a aula"></CorpoInputTextArea>
@@ -112,7 +113,6 @@ class Corpo extends Component {
             </Form>
           </Container>
         </div>
-
       </div>
     );
   }
