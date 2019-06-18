@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+/* eslint-disable */
 
 export default class ChartBar extends PureComponent {
 

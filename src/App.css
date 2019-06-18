@@ -56,7 +56,12 @@
 
 .reSize {
   resize: none;
-  overflow-x: scroll;
+  overflow-y: scroll;
   width: 100%;
-  
+}
+
+.scrollspy {
+  position: relative;
+  overflow: auto;
+  height: 300px;
 }

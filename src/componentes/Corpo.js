@@ -35,25 +35,38 @@ class Corpo extends Component {
     this.setState({ textArea: e.target.value });
   }
 
-  print() {
-    console.log(this.state.values);
+  validatedMatricula = () => {
+    const matriculaR = { matricula: this.state.matricula };
+    console.log(matriculaR);
+
+    axios.get("https://backend-icc.herokuapp.com/pegaMatricula", { params: matriculaR })
+      .then(res => {
+        console.log(res.data);
+
+        if (matriculaR.matricula.length > 0 && res.data) {
+          alert("Submissão concluída com sucesso! =D");
+          this.onSubmit();
+        } else {
+          alert("Matrícula Inválida. Submissão não concluída.  =(");
+        }
+      });
   }
 
   onSubmit = () => {
-    let d = new Date();
-    let dataAtual = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
+      let d = new Date();
+      let dataAtual = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
 
-    axios({
-      method: 'post',
-      url: "https://backend-icc.herokuapp.com/salvaValores",
-      headers: { "Content-Type": "application/json" },
-      data: {
-        values: this.state.values,
-        matricula: this.state.matricula,
-        textArea: this.state.textArea,
-        data: dataAtual
-      }
-    });
+      axios({
+        method: 'post',
+        url: "https://backend-icc.herokuapp.com/salvaValores",
+        headers: { "Content-Type": "application/json" },
+        data: {
+          values: this.state.values,
+          matricula: this.state.matricula,
+          textArea: this.state.textArea,
+          data: dataAtual
+        }
+      });
   }
 
   render() {
@@ -109,7 +122,7 @@ class Corpo extends Component {
                 </Col>
 
               </Row>
-              <Link onClick={this.onSubmit} className="btn btn-primary direita my-2" to={"/resultado"}>Enviar</Link>
+              <Link onClick={this.validatedMatricula} className="btn btn-primary direita my-2" to={"/resultado"}>Enviar</Link>
             </Form>
           </Container>
         </div>
@@ -124,7 +137,12 @@ const renderCorpo = (arrayObjs, myFunction, values) => {
   return arrayObjs.map((obj) => (
     <CorpoInput key={obj.id} id={obj.id} myFunction={myFunction} text={obj.text} value={values[obj.id]}></CorpoInput>
   ));
-}
+};
 
+const staticState = {
+  values: [1, 1, 1, 1],
+  matricula: "",
+  textArea: ""
+};
 
 export default Corpo;

@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { Input, Container } from 'reactstrap';
-//import Chart from './Chart';
 import axios from 'axios';
 import Calendar from "./Datepicker";
-//import ColumnChart from "./Colum";
 import ChartBar from './Bar';
+import TextArea from './TextArea';
+/* eslint-disable */
 
 class Estatistica extends Component {
 
   constructor() {
     super();
     this.state = {
-      textOut: "Testando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\nTestando box de texto\n",
+      textOut: '',
       chartData: {
         labels: ["Seu aproveitamento da aula", "Explicação do conteúdo", "Material da aula", "Avaliação geral da aula"],
         datasets: [
@@ -51,7 +50,11 @@ class Estatistica extends Component {
       .then(res => {
 
         let chartData2 = { ...this.state.chartData }
+        let s = '';
         chartData2.datasets[0].data = res.data;
+        if (res.data[5] !== undefined) {
+          s = res.data[5];
+        }
         const a = res.data;
         const v1 = [
           {
@@ -64,15 +67,17 @@ class Estatistica extends Component {
             name: "Normal", "Aproveitamento da aula": a[2][0], "Conteúdo": a[2][1], "Material": a[2][2], "Geral": a[2][3],
           },
           {
-            name: "Ruim", "Aproveitamento da aula": a[1][0], "Conteúdo": a[1][0], "Material": a[1][2], "Geral": a[1][3],
+            name: "Ruim", "Aproveitamento da aula": a[1][0], "Conteúdo": a[1][1], "Material": a[1][2], "Geral": a[1][3],
           },
           {
             name: "Muito Ruim", "Aproveitamento da aula": a[0][0], "Conteúdo": a[0][1], "Material": a[0][2], "Geral": a[0][3],
           }
         ]
         chartData2.datasets[0].data2 = v1;
-        console.log(chartData2);
+        //console.log(res.data[5]);
+        this.state.textOut = s;
         this.setState({ chartData: chartData2 });
+        this.setState({ textOut: s });
       });
   }
 
@@ -88,6 +93,11 @@ class Estatistica extends Component {
         <div className="my-5">
           <ChartBar values={this.state.chartData.datasets[0].data2}></ChartBar>
         </div>
+
+        <div>
+          <TextArea className="mb-5" value={this.state.textOut}></TextArea>
+        </div>
+
       </div>
     )
   }
@@ -95,15 +105,3 @@ class Estatistica extends Component {
 
 export default Estatistica;
 //<Chart chartData={this.state.chartData} /*titleGraph="Estatística de avaliação de aula"*/ legendPosition="top"></Chart>
-
-/*
-<div className="my-5">
-
-          <Container>
-
-            <Input value={this.state.textOut} className="reSize" rows="12" type="textarea"></Input>
-
-          </Container>
-
-        </div>
-*/
