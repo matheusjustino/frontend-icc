@@ -122,7 +122,7 @@ class Corpo extends Component {
                 </Col>
 
               </Row>
-              <Link onClick={this.validatedMatricula} className="btn btn-primary direita my-2" to={"/resultado"}>Enviar</Link>
+              <Link onClick={this.onSubmit} className="btn btn-primary direita my-2" to={"/resultado"}>Enviar</Link>
             </Form>
           </Container>
         </div>
