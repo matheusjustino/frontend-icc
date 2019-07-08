@@ -17,16 +17,7 @@ class Estatistica extends Component {
           {
             label: "Avaliações Recebidas",
             data: [],
-            data2: [],
-            backgroundColor: [
-              'rgba(255,99,132,0.6)',
-              'rgba(54,162,235,0.6)',
-              'rgba(255,206,86,0.6)',
-              'rgba(75,192,192,0.6)',
-              'rgba(153,102,255,0.6)',
-              'rgba(255,159,64,0.6)',
-              'rgba(255,99,132,0.6)'
-            ]
+            data2: []
           }
         ]
       },
@@ -38,22 +29,27 @@ class Estatistica extends Component {
   handleChange(e) {
     let d = e
     d = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
-    this.state.date = d;
-    this.setState({ date: d });
-    this.getDados();
+    this.setState({ date: d })
+    this.getDados(d);
   }
 
+  init = () => {
+    this.getDados(this.state.date);
+  }
 
-  async getDados() {
-    const dataAgora = { data: this.state.date };
-    await axios.get("https://backend-icc.herokuapp.com/pegaValores", { params: dataAgora })
+  componentDidMount() {
+    this.init();
+    this.getDados(this.state.date);
+  }
+
+  async getDados(date) {
+    const dataAgora = { data: date };
+    await axios.get("https://backend-icc.herokuapp.com/pegaValores", { params: dataAgora }) //"https://backend-icc.herokuapp.com/pegaValores"  "http://localhost:9000/pegaValores"
       .then(res => {
-
         let chartData2 = { ...this.state.chartData }
-        let s = '';
         chartData2.datasets[0].data = res.data;
         if (res.data[5] !== undefined) {
-          s = res.data[5];
+          this.setState({ textOut: res.data[5] });
         }
         const a = res.data;
         const v1 = [
@@ -74,16 +70,14 @@ class Estatistica extends Component {
           }
         ]
         chartData2.datasets[0].data2 = v1;
-        //console.log(res.data[5]);
-        this.state.textOut = s;
         this.setState({ chartData: chartData2 });
-        this.setState({ textOut: s });
       });
   }
 
   render() {
     return (
       <div className="App">
+
         <div className="my-4">
           <Calendar
             myFunction={this.handleChange}
@@ -104,4 +98,3 @@ class Estatistica extends Component {
 }
 
 export default Estatistica;
-//<Chart chartData={this.state.chartData} /*titleGraph="Estatística de avaliação de aula"*/ legendPosition="top"></Chart>

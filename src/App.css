@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Nunito', sans-serif;
 }
 
 .App-logo {
@@ -64,4 +67,12 @@
   position: relative;
   overflow: auto;
   height: 300px;
+}
+
+.container2 {
+  background: #BFD1D9;
+  display: grid;
+  padding: 1em;
+  border-radius: 10px;
+  text-align: left;
 }
