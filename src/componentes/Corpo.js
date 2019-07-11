@@ -66,7 +66,7 @@ class Corpo extends Component {
           textArea: this.state.textArea,
           data: dataAtual
         }
-      }).then(alert("Avaliação de aula recebida! =D")).then(() => window.location.reload());
+      }).then(() => window.location.reload());
   }
 
   render() {
