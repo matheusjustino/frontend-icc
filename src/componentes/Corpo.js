@@ -66,7 +66,7 @@ class Corpo extends Component {
           textArea: this.state.textArea,
           data: dataAtual
         }
-      });
+      }).then(alert("Avaliação de aula recebida! =D")).then(() => window.location.reload());
   }
 
   render() {
@@ -77,7 +77,7 @@ class Corpo extends Component {
         <div>
 
           <Navbar color="dark" expand="md">
-            <div className="container">
+            <div className="container" style={{whiteSpace: "nowrap"}}>
               <div className="row col-12">
 
                 <Titulo></Titulo>
@@ -99,7 +99,7 @@ class Corpo extends Component {
                     {renderCorpo([
                       {
                         id: 0,
-                        text: "Seu aproveitamento da aula"
+                        text: "Aproveitamento da aula"
                       },
                       {
                         id: 1,
@@ -122,7 +122,8 @@ class Corpo extends Component {
                 </Col>
 
               </Row>
-              <Link onClick={this.onSubmit} className="btn btn-primary direita my-2" to={"/resultado"}>Enviar</Link>
+              <button onClick={this.onSubmit} className="btn btn-primary direita my-2 mx-2">Enviar</button>
+              <Link className="btn btn-primary direita my-2" to={"/resultado"}>Ver o Gráfico</Link>
             </Form>
           </Container>
         </div>

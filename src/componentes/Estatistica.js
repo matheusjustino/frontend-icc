@@ -33,12 +33,7 @@ class Estatistica extends Component {
     this.getDados(d);
   }
 
-  init = () => {
-    this.getDados(this.state.date);
-  }
-
   componentDidMount() {
-    this.init();
     this.getDados(this.state.date);
   }
 
