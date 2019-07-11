@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 
 import { Container, Row, Col, Form, Navbar } from 'reactstrap';
 
+
 class Corpo extends Component {
   constructor(props) {
     super(props)
@@ -53,9 +54,10 @@ class Corpo extends Component {
   }
 
   onSubmit = () => {
-      let d = new Date();
-      let dataAtual = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
+    let d = new Date();
+    let dataAtual = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
 
+    if (this.state.matricula.length > 0) {
       axios({
         method: 'post',
         url: "https://backend-icc.herokuapp.com/salvaValores", //"https://backend-icc.herokuapp.com/salvaValores"   "http://localhost:9000/salvaValores"
@@ -66,7 +68,13 @@ class Corpo extends Component {
           textArea: this.state.textArea,
           data: dataAtual
         }
-      }).then(() => window.location.reload());
+      }).then(() => {
+        alert("Avaliação de aula recebida! =D")
+        window.location.reload();
+      });
+    } else {
+      alert("Campo Matrícula deve ser preenchido!");
+    }
   }
 
   render() {
@@ -77,7 +85,7 @@ class Corpo extends Component {
         <div>
 
           <Navbar color="dark" expand="md">
-            <div className="container" style={{whiteSpace: "nowrap"}}>
+            <div className="container" style={{ whiteSpace: "nowrap" }}>
               <div className="row col-12">
 
                 <Titulo></Titulo>
@@ -92,7 +100,7 @@ class Corpo extends Component {
 
         <div className="mt-5">
           <Container className="borda" expand="md">
-            <Form>
+            <div>
               <Row>
                 <div className="col-sm-12 col-lg-6">
                   <Col className="form-group my-3">
@@ -124,7 +132,7 @@ class Corpo extends Component {
               </Row>
               <button onClick={this.onSubmit} className="btn btn-primary direita my-2 mx-2">Enviar</button>
               <Link className="btn btn-primary direita my-2" to={"/resultado"}>Ver o Gráfico</Link>
-            </Form>
+            </div>
           </Container>
         </div>
       </div>
@@ -138,12 +146,6 @@ const renderCorpo = (arrayObjs, myFunction, values) => {
   return arrayObjs.map((obj) => (
     <CorpoInput key={obj.id} id={obj.id} myFunction={myFunction} text={obj.text} value={values[obj.id]}></CorpoInput>
   ));
-};
-
-const staticState = {
-  values: [1, 1, 1, 1],
-  matricula: "",
-  textArea: ""
 };
 
 export default Corpo;
