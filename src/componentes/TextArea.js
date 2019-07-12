@@ -7,10 +7,12 @@ export default class TextArea extends React.Component {
     }
 
     render() {
+
         return (
             <div data-psy="scroll" className="scrollspy container mb-5">
                 {string(this.props.value)}
             </div>
+            
         );
     }
 }

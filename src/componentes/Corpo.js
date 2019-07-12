@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import CorpoInput from './CorpoInput';
 import CorpoInputTextArea from './CorpoInputTextArea';
-import axios from 'axios';
 import Titulo from './Title';
 import Matricula from './Matricula';
 import { Link } from 'react-router-dom'
+import { Container, Row, Col, Navbar } from 'reactstrap';
+import swal from 'sweetalert';
+import Funcoes from '../Funcoes';
 
-import { Container, Row, Col, Form, Navbar } from 'reactstrap';
 
 
 class Corpo extends Component {
@@ -36,45 +37,18 @@ class Corpo extends Component {
     this.setState({ textArea: e.target.value });
   }
 
-  validatedMatricula = () => {
-    const matriculaR = { matricula: this.state.matricula };
-    console.log(matriculaR);
-
-    axios.get("https://backend-icc.herokuapp.com/pegaMatricula", { params: matriculaR })
-      .then(res => {
-        console.log(res.data);
-
-        if (matriculaR.matricula.length > 0 && res.data) {
-          alert("Submissão concluída com sucesso! =D");
-          this.onSubmit();
-        } else {
-          alert("Matrícula Inválida. Submissão não concluída.  =(");
-        }
-      });
-  }
-
   onSubmit = () => {
     let d = new Date();
     let dataAtual = (d.getDate() < 9 ? "0" + d.getDate() : d.getDate()) + "/" + (d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) + "/" + d.getFullYear();
+    let submissaoValida = Funcoes.validarMatricula(this.state.matricula);
 
-    if (this.state.matricula.length > 0) {
-      axios({
-        method: 'post',
-        url: "https://backend-icc.herokuapp.com/salvaValores", //"https://backend-icc.herokuapp.com/salvaValores"   "http://localhost:9000/salvaValores"
-        headers: { "Content-Type": "application/json" },
-        data: {
-          values: this.state.values,
-          matricula: this.state.matricula,
-          textArea: this.state.textArea,
-          data: dataAtual
-        }
-      }).then(() => {
-        alert("Avaliação de aula recebida! =D")
-        window.location.reload();
-      });
+    if (submissaoValida) {
+      Funcoes.metodoPost(this.state.values, this.state.matricula, this.state.textArea, dataAtual);
+      mensagemInformativa(submissaoValida);
     } else {
-      alert("Campo Matrícula deve ser preenchido!");
+      mensagemInformativa(submissaoValida);
     }
+
   }
 
   render() {
@@ -147,5 +121,12 @@ const renderCorpo = (arrayObjs, myFunction, values) => {
     <CorpoInput key={obj.id} id={obj.id} myFunction={myFunction} text={obj.text} value={values[obj.id]}></CorpoInput>
   ));
 };
+
+function mensagemInformativa(value) {
+  const alertMsg = value === true ? swal({ text: "Avaliação de aula recebida!", icon: "success", closeOnClickOutside: false }).then(() => { window.location.reload(); }) :
+                                    swal({ title: "Opss...", text: "O campo Matrícula deve ser preenchido", icon: "error", closeOnClickOutside: false });
+  return (alertMsg);
+}
+
 
 export default Corpo;

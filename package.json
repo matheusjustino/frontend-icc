@@ -16,7 +16,8 @@
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
-    "reactstrap": "^8.0.0",
+    "react-simplert": "0.0.2",
+    "reactstrap": "^8.0.1",
     "recharts": "^1.6.2",
     "sweetalert": "^2.1.2"
   },
