@@ -124,7 +124,7 @@ const renderCorpo = (arrayObjs, myFunction, values) => {
 
 function mensagemInformativa(value) {
   const alertMsg = value === true ? swal({ text: "Avaliação de aula recebida!", icon: "success", closeOnClickOutside: false }).then(() => { window.location.reload(); }) :
-                                    swal({ title: "Opss...", text: "O campo Matrícula deve ser preenchido", icon: "error", closeOnClickOutside: false });
+                                    swal({ title: "Opss...", text: "Matrícula inválida!", icon: "error", closeOnClickOutside: false });
   return (alertMsg);
 }
 
