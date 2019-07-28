@@ -7,7 +7,7 @@ class Titulo extends Component {
         return (
 
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <Label className="text-light">
+				<Label id="titulo" className="text-light">
                     Formulário de Avaliação de Aula
                 </Label>
             </div>

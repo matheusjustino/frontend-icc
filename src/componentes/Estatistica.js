@@ -8,7 +8,7 @@ import Funcoes from '../Funcoes';
 class Estatistica extends Component {
 
   constructor() {
-    super();
+		super();
     this.state = {
       textOut: '',
       chartData: {

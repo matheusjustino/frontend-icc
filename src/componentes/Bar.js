@@ -13,8 +13,8 @@ export default class ChartBar extends PureComponent {
       <div className="container">
 
         <BarChart
-          width={1080}
-          height={720}
+					width={1080}
+					height={720}
           data={this.props.values}
           margin={
             {

@@ -58,7 +58,7 @@ class Corpo extends Component {
 
         <div>
 
-          <Navbar color="dark" expand="md">
+          <Navbar id="navbar" color="dark" expand="md">
             <div className="container" style={{ whiteSpace: "nowrap" }}>
               <div className="row col-12">
 
@@ -72,9 +72,9 @@ class Corpo extends Component {
 
         </div>
 
-        <div className="mt-5">
-          <Container className="borda" expand="md">
-            <div>
+        <div id="outroteste" className="mt-5">
+          <Container id="body" className="borda" expand="md">
+            <div id="teste">
               <Row>
                 <div className="col-sm-12 col-lg-6">
                   <Col className="form-group my-3">

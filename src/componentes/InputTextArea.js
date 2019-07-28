@@ -19,7 +19,7 @@ class InputTextArea extends React.Component {
     render() {
         return (
             <div className="mt-2 col-12">
-                <Input value={this.state.campoDeText} onChange={this.handleChange} rows="5" type="textarea"></Input>
+                <Input id="input-textarea" value={this.state.campoDeText} onChange={this.handleChange} rows="5" type="textarea"></Input>
             </div>
         );
     }
